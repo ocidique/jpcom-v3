@@ -1,5 +1,277 @@
 @import "tailwindcss";
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    font-weight: 400;
+    src: url(../fonts/Poppins-Regular.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    font-weight: 500;
+    src: url(../fonts/Poppins-Medium.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    font-weight: 600;
+    src: url(../fonts/Poppins-SemiBold.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Roboto Mono";
+    font-weight: 400;
+    src: url(../fonts/RobotoMono-Regular.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Roboto Mono";
+    font-weight: 500;
+    src: url(../fonts/RobotoMono-Medium.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Lavishly Yours";
+    font-weight: 400;
+    src: url(../fonts/LavishlyYours-Regular.ttf) format("truetype");
+  }
+}
+
+@layer utilities {
+  .text-shadow-xl {
+    /* text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.45); */
+    text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
+  }
+  .text-shadow {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+  }
+
+  /* used to give drop shadow for icons if used with text-shadow */
+  .filter-shadow {
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.45));
+  }
+}
+
+/* Frontpage background */
+.frontpage-bg {
+  position: absolute !important;
+}
+
+/* Post content */
+
+.post-content ul {
+  @apply mx-auto max-w-2xl list-disc space-y-2 pl-5 text-xl leading-9;
+}
+
+.post-content ol {
+  @apply mx-auto max-w-2xl list-decimal space-y-2 pl-5 text-xl leading-9;
+}
+
+.post-content h1 {
+  @apply mx-auto max-w-2xl text-3xl font-semibold;
+}
+
+.post-content h2 {
+  @apply mx-auto max-w-2xl text-2xl font-semibold;
+}
+
+.post-content h3 {
+  @apply mx-auto max-w-2xl text-xl font-semibold;
+}
+
+.post-content h4 {
+  @apply mx-auto max-w-2xl text-xl font-semibold;
+}
+
+.post-content h2 + p,
+.post-content h2 + ul,
+.post-content h2 + ol,
+.post-content h2 + pre,
+.post-content h3 + p,
+.post-content h3 + ul,
+.post-content h3 + ol,
+.post-content h3 + pre,
+.post-content h4 + p,
+.post-content h4 + ul,
+.post-content h4 + ol,
+.post-content h4 + pre {
+  margin-top: 12px !important;
+}
+
+.post-content p {
+  @apply mx-auto max-w-2xl space-y-3 text-xl leading-9;
+}
+
+.post-content .post-photo-meta {
+  @apply py-1 pl-1 text-sm text-zinc-600 dark:text-zinc-400;
+}
+
+.post-content blockquote {
+  @apply mx-auto max-w-2xl space-y-3 border-l-4 border-orange-500 py-1 pl-6 text-xl;
+}
+
+.post-content pre {
+  @apply mx-auto max-w-2xl rounded border border-gray-300 bg-gray-50 p-4 dark:border-gray-900 dark:bg-gray-800;
+}
+
+.post-content hr {
+  @apply mx-auto max-w-2xl border-zinc-300 bg-zinc-300 dark:border-zinc-700 dark:bg-zinc-700;
+}
+
+.post-content a {
+  @apply border-b-4 border-orange-500 hover:text-orange-600;
+}
+
+.post-content p > code {
+  @apply rounded border border-zinc-300 bg-gray-200 px-1 text-red-500 dark:border-gray-900 dark:bg-gray-800 dark:text-red-400;
+}
+
+.post-content table {
+  @apply mx-auto w-full max-w-2xl border-collapse divide-y divide-gray-300 dark:divide-zinc-700;
+}
+
+.post-content table thead {
+  @apply text-left;
+}
+
+.post-content table tbody {
+  @apply divide-y divide-gray-300 dark:divide-zinc-700;
+}
+
+.post-content th {
+  @apply px-2.5 py-3 text-left text-lg font-semibold sm:pl-6;
+}
+
+.post-content td {
+  @apply px-2.5 py-3 text-base whitespace-nowrap sm:pl-6;
+}
+
+/* Frontpage */
+.landing {
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: -200px;
+  z-index: 1;
+  /* box-sizing: border-box;
+  pointer-events: auto; */
+  /* height: 768px; */
+  max-width: 768px;
+}
+
+.landing-circle {
+  background: #cd5c5c;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 100px;
+  border-radius: 100px;
+  z-index: 1;
+}
+
+.landing-square {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  z-index: 1;
+}
+
+.landing-square__left {
+  width: 300px;
+  height: 300px;
+  background: #9acd32;
+  float: left;
+}
+
+.welcome {
+  margin: 0;
+  padding: 2.5em 1em;
+  text-align: right;
+  cursor: default;
+  position: absolute;
+  top: -42%;
+  left: -15%;
+  float: left;
+  z-index: 10;
+}
+
+.landing-square__right {
+  width: 300px;
+  height: 300px;
+  float: left;
+}
+
+.description {
+  margin: 0;
+  z-index: 10;
+  padding: 0 1em;
+  cursor: default;
+  position: absolute;
+  top: 55%;
+  width: 100%;
+}
+
+.slogan {
+  margin: 0;
+  z-index: 10;
+  padding: 0 1em;
+  cursor: default;
+  position: absolute;
+  top: 90%;
+  width: 100%;
+}
+
+.wuts {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 5vh;
+  z-index: 3;
+  color: var(--text-color-2);
+  font-size: 1.2em;
+}
+
+.landing-triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 100px 170px 100px;
+  border-color: transparent transparent #0091ff transparent;
+  position: absolute;
+  z-index: 3;
+}
+
+.landing-title {
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.025em;
+  font-size: 5em;
+  line-height: 160px;
+  margin: 0;
+  text-transform: lowercase;
+  z-index: 10;
+  cursor: default;
+  position: absolute;
+  left: 205px;
+  top: 310px;
+}
+
+.landing-title span {
+  padding-left: 40px;
+}
+
+.landing-square__left,
+.landing-circle,
+.landing-title {
+  transition: transform 0.3s ease-out;
+}
+
 /*
   The CSS in this style tag is based off of Bear Blog's default CSS.
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
