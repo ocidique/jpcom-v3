@@ -1,0 +1,65 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { Image } from "astro:assets";
+import forestBg from "../assets/forest.png";
+
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  showBackground?: boolean;
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  showBackground = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <script is:inline>
+      (function () {
+        if (
+          localStorage.theme === "dark" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="relative flex min-h-screen flex-col">
+    {
+      showBackground && (
+        <>
+          <div class="absolute inset-0 -z-20 bg-zinc-100">
+            <Image
+              src={forestBg}
+              alt="Forest Background"
+              aria-hidden="true"
+              class="h-full w-full object-cover"
+            />
+          </div>
+          {/* <div class="dark:bg-gradient-br absolute inset-0 -z-10 bg-gradient-to-tl from-lime-900 via-sky-200 to-orange-300 opacity-80 dark:from-black dark:via-slate-900 dark:to-cyan-900" /> */}
+          <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#D783A4] from-20% via-[#E2AA9B] via-42% to-[#F2E48E] to-88% opacity-70 dark:bg-gradient-to-tl dark:from-black dark:via-slate-900 dark:to-cyan-900" />
+        </>
+      )
+    }
+    <Header />
+    <main class="flex-1 p-13">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
