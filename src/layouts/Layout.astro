@@ -12,12 +12,14 @@ interface Props {
   title?: string;
   description?: string;
   showBackground?: boolean;
+  showFooter?: boolean;
 }
 
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   showBackground = false,
+  showFooter = true,
 } = Astro.props;
 ---
 
@@ -60,6 +62,6 @@ const {
     <main class="flex-1 p-13">
       <slot />
     </main>
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>
