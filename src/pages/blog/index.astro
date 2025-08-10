@@ -8,36 +8,117 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection("blog")).sort((a, b) => {
+  // First, sort by pinned status (pinned posts first)
+  if (a.data.pinned && !b.data.pinned) {
+    return -1;
+  }
+  if (!a.data.pinned && b.data.pinned) {
+    return 1;
+  }
+
+  // Then sort by publication date (newest first)
+  return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+});
+
+const gradients = [
+  "bg-gradient-to-tl from-indigo-500 via-purple-500 to-pink-500",
+  "bg-[linear-gradient(60deg,_rgb(247,_149,_51),_rgb(243,_112,_85),_rgb(239,_78,_123),_rgb(161,_102,_171),_rgb(80,_115,_184),_rgb(16,_152,_173),_rgb(7,_179,_155),_rgb(111,_186,_130))]",
+  "bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500",
+  "bg-linear-to-r from-green-500 via-emerald-500 to-teal-500",
+  "bg-linear-to-r from-gray-800 via-blue-700 to-gray-900",
+  "bg-gradient-to-bl from-yellow-400 via-orange-500 to-yellow-600",
+  "bg-gradient-to-bl from-red-200 via-pink-400 to-rose-600",
+  "bg-gradient-to-l from-orange-200 via-red-400 to-pink-600",
+];
+
+// Shuffle the gradients array to ensure variety
+const shuffledGradients = [...gradients].sort(() => Math.random() - 0.5);
+
+// Function to get gradient by index, cycling through the shuffled array
+const getGradientByIndex = (index: number) => {
+  return shuffledGradients[index % shuffledGradients.length];
+};
 ---
 
 <Layout>
-  <main>
-    <section>
-      <ul>
+  <section class="w-full space-y-6 lg:space-y-12">
+    <div class="space-y-4">
+      <h1
+        class="text-3xl leading-9 font-extrabold tracking-tight sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
+      >
+        blog
+      </h1>
+      <p
+        class="text-lg leading-normal tracking-wider text-zinc-900 lg:text-2xl dark:text-zinc-300"
+      >
+        I write sometimes.
+      </p>
+    </div>
+    <div class="space-y-6 lg:space-y-12">
+      <ul class="grid grid-cols-8 gap-4 lg:grid-cols-12">
         {
-          posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.id}/`}>
-                {post.data.heroImage && (
+          posts.map((post, i) => {
+            const cardClass = `after:content group relative after:pointer-events-none after:absolute after:inset-0 after:shadow-highlight ${
+              post.data.pinned
+                ? "col-span-12 lg:col-span-8 row-span-2"
+                : i === 0
+                  ? "col-span-12 lg:col-span-4 row-span-2"
+                  : "col-span-12 lg:col-span-4"
+            }`;
+
+            return (
+              <a href={`/blog/${post.id}/`} class={cardClass}>
+                {post.data.pinned && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    class="absolute top-5 left-4 z-30 h-6 w-6 text-white"
+                    stroke="currentColor"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M32 32C32 14.33 46.33 0 64 0H320C337.7 0 352 14.33 352 32C352 49.67 337.7 64 320 64H290.5L301.9 212.2C338.6 232.1 367.5 265.4 381.4 306.9L382.4 309.9C385.6 319.6 383.1 330.4 377.1 338.7C371.9 347.1 362.3 352 352 352H32C21.71 352 12.05 347.1 6.04 338.7C.0259 330.4-1.611 319.6 1.642 309.9L2.644 306.9C16.47 265.4 45.42 232.1 82.14 212.2L93.54 64H64C46.33 64 32 49.67 32 32zM224 384V480C224 497.7 209.7 512 192 512C174.3 512 160 497.7 160 480V384H224z"
+                    />
+                  </svg>
+                )}
+                <li class="absolute z-20 flex h-full w-full flex-col justify-end space-y-2 p-6 text-zinc-100">
+                  <h2
+                    class={
+                      post.data.pinned
+                        ? "text-shadow text-3xl font-medium group-hover:underline"
+                        : "text-shadow text-xl text-white group-hover:underline"
+                    }
+                  >
+                    {post.data.title}
+                  </h2>
+                  {/* <p
+                    class={
+                      post.data.heroImage
+                        ? "font-mono text-sm"
+                        : "font-mono text-sm text-black dark:text-white"
+                    }
+                  > */}
+                  <p class="font-mono text-sm text-white">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                </li>
+                {post.data.heroImage ? (
                   <Image
-                    width={720}
-                    height={360}
                     src={post.data.heroImage}
                     alt=""
+                    class="h-full w-full transform brightness-80 transition will-change-auto group-hover:brightness-90"
+                  />
+                ) : (
+                  <div
+                    class={`h-full min-h-[240px] w-full transform brightness-80 transition will-change-auto group-hover:brightness-90 ${getGradientByIndex(i)}`}
                   />
                 )}
-                <h4 class="title">{post.data.title}</h4>
-                <p class="date">
-                  <FormattedDate date={post.data.pubDate} />
-                </p>
               </a>
-            </li>
-          ))
+            );
+          })
         }
       </ul>
-    </section>
-  </main>
+    </div>
+  </section>
 </Layout>
