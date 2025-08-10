@@ -1,59 +1,78 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import Logo from "../assets/logo_header.svg";
+
+interface Props {
+  showLogo?: boolean;
+}
+
+const { showLogo = true } = Astro.props;
 ---
 
 <header>
-  <nav class="flex flex-col gap-4 p-10">
-    <div class="flex">
-      <h2 class="px-3">
-        <a href="/" class="text-3xl font-semibold lowercase">{SITE_TITLE}</a>
-      </h2>
-    </div>
-    <div class="flex items-center gap-4">
-      <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
-      <HeaderLink href="/cv">CV</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
+  <div class="mx-auto mt-6 flex max-w-screen-2xl items-center justify-between">
+    <nav class="flex flex-col gap-2 px-7 py-4">
+      <div class="flex">
+        <h2>
+          <a
+            href="/"
+            class="rounded-md px-3 font-sans text-3xl font-semibold lowercase hover:text-orange-500"
+            >{SITE_TITLE}</a
+          >
+        </h2>
+      </div>
+      <div class="flex items-center gap-4">
+        <HeaderLink href="/about">About</HeaderLink>
+        <HeaderLink href="/cv">CV</HeaderLink>
+        <HeaderLink href="/blog">Blog</HeaderLink>
 
-      <div aria-hidden="true">/</div>
+        <div aria-hidden="true">/</div>
 
-      <button
-        type="button"
-        id="theme-selector"
-        class="flex cursor-pointer items-center fill-zinc-900 px-3 py-2 hover:fill-orange-500 dark:fill-zinc-100"
-      >
-        <span class="sr-only"
-          >Enable <span class="dark:hidden">light</span><span
-            class="hidden dark:inline">dark</span
-          > mode</span
+        <button
+          type="button"
+          id="theme-selector"
+          class="flex cursor-pointer items-center rounded-md fill-zinc-900 px-3 py-2 hover:fill-orange-500 dark:fill-zinc-100"
         >
-        <svg class="hidden h-5 w-5 dark:inline">
-          <path
-            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-          ></path>
-        </svg>
-        <svg class="h-5 w-5 dark:hidden">
-          <path
-            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-            fill-rule="evenodd"
-            clip-rule="evenodd"></path>
-        </svg>
+          <span class="sr-only"
+            >Enable <span class="dark:hidden">light</span><span
+              class="hidden dark:inline">dark</span
+            > mode</span
+          >
+          <svg class="hidden h-5 w-5 dark:inline">
+            <path
+              d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+            ></path>
+          </svg>
+          <svg class="h-5 w-5 dark:hidden">
+            <path
+              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+              fill-rule="evenodd"
+              clip-rule="evenodd"></path>
+          </svg>
 
-        <script>
-          document
-            .getElementById("theme-selector")
-            ?.addEventListener("click", () => {
-              if (localStorage.theme === "dark") {
-                localStorage.theme = "light";
-                document.documentElement.classList.remove("dark");
-              } else {
-                localStorage.theme = "dark";
-                document.documentElement.classList.add("dark");
-              }
-            });
-        </script>
-      </button>
-    </div>
-  </nav>
+          <script>
+            document
+              .getElementById("theme-selector")
+              ?.addEventListener("click", () => {
+                if (localStorage.theme === "dark") {
+                  localStorage.theme = "light";
+                  document.documentElement.classList.remove("dark");
+                } else {
+                  localStorage.theme = "dark";
+                  document.documentElement.classList.add("dark");
+                }
+              });
+          </script>
+        </button>
+      </div>
+    </nav>
+    {
+      showLogo && (
+        <div class="px-7 py-4 text-orange-500">
+          <Logo />
+        </div>
+      )
+    }
+  </div>
 </header>
