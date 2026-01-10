@@ -4,9 +4,9 @@
     {
       "files": "*.astro",
       "options": {
-        "parser": "astro",
-        "singleQuote": false
+        "parser": "astro"
       }
     }
-  ]
+  ],
+  "pluginSearchDirs": false
 }
