@@ -7,7 +7,7 @@
   }
 
   body {
-    @apply text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800;
+    @apply text-zinc-900 dark:text-zinc-100 bg-zinc-50 dark:bg-[#0F0F0F];
   }
 
   @font-face {
@@ -61,6 +61,13 @@
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.45));
   }
 }
+
+@theme {
+  --font-cursive: "Lavishly Yours", "sans-serif";
+  --color-one-dark: #21252b;
+  --font-sans: "Poppins", "sans-serif";
+}
+
 /* Navigation */
 nav a.active {
 	@apply text-orange-500 underline;
