@@ -104,6 +104,14 @@ nav a.active {
   @apply mx-auto max-w-2xl text-xl font-semibold;
 }
 
+.post-content h5 {
+  @apply mx-auto max-w-2xl text-lg font-semibold;
+}
+
+.post-content h6 {
+  @apply mx-auto max-w-2xl text-base font-semibold;
+}
+
 .post-content h2 + p,
 .post-content h2 + ul,
 .post-content h2 + ol,
