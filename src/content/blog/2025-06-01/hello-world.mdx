@@ -5,29 +5,19 @@ title: "Hello world!"
 type: "blog"
 pinned: true
 tags: ["life"]
-heroImage: "../../assets/nature_juho.jpg"
+heroImage: "./nature_juho.jpg"
 heroImageAlt: "It's a me!"
 heroImageCreditText: "Harri Tarvainen"
 heroImageCreditLink: "https://www.instagram.com/harritarvainen/"
+heroImageFullWidth: false
 ---
 
 import { Image } from "astro:assets";
-import WrapperBlock from "../../components/blog/WrapperBlock.astro";
-import ContentBlock from "../../components/blog/ContentBlock.astro";
-import PhotoMeta from "../../components/blog/PhotoMeta.astro";
-import natureJuho from "../../assets/nature_juho.jpg";
-import timeToLearnGIF from "../../assets/time_to_learn.gif";
-
-{/* <WrapperBlock>
-  <ContentBlock>
-    <Image src={natureJuho} alt="Juho Pekkala loving the summer nature" />
-    <PhotoMeta
-      alt={"It's a me!"}
-      credit={"Harri Tarvainen"}
-      url={"https://www.instagram.com/harritarvainen/"}
-    />
-  </ContentBlock>
-</WrapperBlock> */}
+import WrapperBlock from "../../../components/blog/WrapperBlock.astro";
+import ContentBlock from "../../../components/blog/ContentBlock.astro";
+import PhotoMeta from "../../../components/blog/PhotoMeta.astro";
+import natureJuho from "./nature_juho.jpg";
+import timeToLearnGIF from "./time_to_learn.gif";
 
 **My name is Juho Pekkala**. I was born in the Arctic Circle in a town called Rovaniemi, Finland. Rovaniemi is also called The Capital of Lapland. It's famous for nightless nights during the summer, the hometown of Santa Claus and the Northern Lights after the summer when the darkness once again descends.
 

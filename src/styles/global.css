@@ -123,7 +123,15 @@ nav a.active {
 .post-content h4 + p,
 .post-content h4 + ul,
 .post-content h4 + ol,
-.post-content h4 + pre {
+.post-content h4 + pre,
+.post-content h5 + p,
+.post-content h5 + ul,
+.post-content h5 + ol,
+.post-content h5 + pre,
+.post-content h6 + p,
+.post-content h6 + ul,
+.post-content h6 + ol,
+.post-content h6 + pre   {
   margin-top: 12px !important;
 }
 

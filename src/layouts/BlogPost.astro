@@ -16,6 +16,7 @@ const {
   heroImageAlt = "",
   heroImageCreditText = "",
   heroImageCreditLink = "",
+  heroImageFullWidth = false,
 } = Astro.props;
 ---
 
@@ -46,8 +47,12 @@ const {
 
     {
       heroImage && (
-        <div>
-          <Image src={heroImage} alt={heroImageAlt} class="w-full" />
+        <div class="flex flex-col items-center">
+          <Image
+            src={heroImage}
+            alt={heroImageAlt}
+            class={heroImageFullWidth ? "w-full" : "max-w-5xl"}
+          />
           {heroImageAlt && (
             <PhotoMeta
               alt={heroImageAlt}
@@ -61,9 +66,7 @@ const {
 
     <div
       id="content"
-      class={heroImage
-        ? "post-content -mt-12space-y-10 px-4 text-zinc-900 dark:text-zinc-300"
-        : "post-content  space-y-10 px-4 text-zinc-900 dark:text-zinc-300"}
+      class="post-content space-y-10 px-4 text-zinc-900 dark:text-zinc-300"
     >
       <slot />
     </div>
