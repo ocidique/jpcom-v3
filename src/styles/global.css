@@ -121,11 +121,11 @@ nav a.active {
 /* Post content */
 
 .post-content ul {
-  @apply mx-auto max-w-2xl list-disc space-y-2 pl-5 text-xl leading-9;
+  @apply mx-auto max-w-2xl list-disc space-y-2 pl-5 text-xl leading-10;
 }
 
 .post-content ol {
-  @apply mx-auto max-w-2xl list-decimal space-y-2 pl-5 text-xl leading-9;
+  @apply mx-auto max-w-2xl list-decimal space-y-2 pl-5 text-xl leading-10;
 }
 
 .post-content h1 {
@@ -176,7 +176,7 @@ nav a.active {
 }
 
 .post-content p {
-  @apply mx-auto max-w-2xl space-y-3 text-xl leading-9;
+  @apply mx-auto max-w-2xl space-y-3 text-xl leading-10;
 }
 
 .post-content .post-photo-meta {
@@ -195,8 +195,8 @@ nav a.active {
   @apply mx-auto max-w-2xl border-zinc-300 bg-zinc-300 dark:border-zinc-700 dark:bg-zinc-700;
 }
 
-.post-content a {
-  @apply border-b-4 border-orange-500 hover:text-orange-600;
+.post-content p > a, .post-content li > a {
+  @apply mx-auto max-w-2xl border-b-2  border-orange-500 hover:text-indigo-600 dark:text-zinc-100 dark:hover:text-indigo-400;
 }
 
 .post-content p > code {

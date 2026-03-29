@@ -1,6 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, SITE_HEADER_TITLE } from "../consts";
 import Logo from "../assets/logo_header.svg";
 
 interface Props {
@@ -17,8 +17,10 @@ const { showLogo = true } = Astro.props;
         <h2>
           <a
             href="/"
-            class="rounded-md px-3 font-sans text-3xl font-semibold lowercase hover:text-orange-500"
-            >{SITE_TITLE}</a
+            class="font-cursive rounded-md px-3 font-semibold lowercase hover:text-orange-500"
+            ><span class="mr-3 text-3xl text-indigo-400">hi, from</span><span
+              class="text-3xl">{SITE_HEADER_TITLE}</span
+            ></a
           >
         </h2>
       </div>
