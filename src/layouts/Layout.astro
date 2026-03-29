@@ -53,8 +53,18 @@ const stars = Array.from({ length: 150 }).map(() => ({
   </head>
   <body class="relative flex min-h-screen flex-col">
     <!-- UNIVERSAL SKY COLOR -->
-    <div class="fixed inset-0 -z-30 bg-linear-to-b from-sky-400 to-sky-200 transition-colors duration-1000 dark:from-[#050510] dark:via-[#0a0a1a] dark:to-[#1a1230]"></div>
-    <div class="pointer-events-none fixed inset-0 -z-10 bg-linear-to-r from-[#D783A4] from-20% via-[#E2AA9B] via-42% to-[#F2E48E] to-88% opacity-70 mix-blend-multiply dark:bg-linear-to-tl dark:from-transparent dark:via-slate-900/40 dark:to-cyan-900/40 dark:mix-blend-normal"></div>
+    <div
+      class={`fixed inset-0 -z-30 bg-linear-to-b transition-colors duration-1000 dark:from-[#050510] dark:via-[#0a0a1a] dark:to-[#1a1230] ${
+        showBackground ? "from-sky-400 to-sky-200" : "from-zinc-50 to-zinc-100"
+      }`}
+    ></div>
+    <div
+      class={`pointer-events-none fixed inset-0 -z-10 transition-opacity duration-1000 dark:bg-linear-to-tl dark:from-transparent dark:via-slate-900/40 dark:to-cyan-900/40 dark:mix-blend-normal dark:!opacity-70 ${
+        showBackground
+          ? "bg-linear-to-r from-[#D783A4] from-20% via-[#E2AA9B] via-42% to-[#F2E48E] to-88% opacity-70 mix-blend-multiply"
+          : "opacity-0"
+      }`}
+    ></div>
 
     {
       showBackground && (
