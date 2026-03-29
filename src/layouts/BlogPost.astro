@@ -20,9 +20,7 @@ const {
 } = Astro.props;
 ---
 
-<main
-  class="relative z-30 min-h-screen scroll-smooth bg-zinc-50 dark:bg-[#0F0F0F]"
->
+<main class="relative z-30 min-h-screen scroll-smooth">
   <article class="flex min-h-screen flex-col justify-between space-y-12">
     <div
       class="flex flex-col items-center justify-center space-y-6 text-center"
@@ -51,7 +49,7 @@ const {
           <Image
             src={heroImage}
             alt={heroImageAlt}
-            class={heroImageFullWidth ? "w-full" : "max-w-5xl"}
+            class={heroImageFullWidth ? "w-full" : "max-w-2xl"}
           />
           {heroImageAlt && (
             <PhotoMeta
