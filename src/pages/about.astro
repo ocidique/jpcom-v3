@@ -1,10 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
 import profileImage from "../assets/juho_profile.jpg";
-import DotPattern from "../components/DotPattern.astro";
 import { Image } from "astro:assets";
 import CTA from "../components/CTA.astro";
+
+// Generate scattered tracking stars for a galaxy effect around the profile picture
+const stars = Array.from({ length: 40 }).map(() => {
+  const angle = Math.random() * Math.PI * 2;
+  const radius = Math.random() * 110 + 60; // Defines the galaxy ring width
+  return {
+    top: 150 + Math.sin(angle) * radius + "px", // 150 is the center of the 300x300 rotating wrapper
+    left: 150 + Math.cos(angle) * radius + "px",
+    size: Math.random() * 2 + 0.5,
+    opacity: Math.random() * 0.6 + 0.2,
+  };
+});
 ---
 
 <Layout title="About Me" description="Lorem ipsum dolor sit amet">
@@ -14,34 +24,80 @@ import CTA from "../components/CTA.astro";
         <div
           class="absolute z-30"
           style={{
-            background: "#9acd32",
             width: "200px",
             height: "200px",
             transform: "rotate(-30deg)",
           }}
         >
+          <svg viewBox="0 0 200 200" class="h-full w-full">
+            <rect
+              x="2"
+              y="2"
+              width="196"
+              height="196"
+              fill="none"
+              class="stroke-slate-500/40 dark:stroke-slate-400/40"
+              stroke-width="1.5"
+              stroke-dasharray="4 6"></rect>
+          </svg>
         </div>
 
         <div
-          class="absolute z-20 h-0 w-0 border"
+          class="absolute z-20"
           style={{
             top: "50px",
             left: "130px",
             transform: "rotate(-130deg)",
-            borderWidth: "0 100px 170px 100px",
-            borderColor: "transparent transparent #cd5c5c transparent",
+            width: "200px",
+            height: "170px",
           }}
         >
+          <svg viewBox="0 0 200 170" class="h-full w-full">
+            <polygon
+              points="100,2 198,168 2,168"
+              fill="none"
+              class="stroke-slate-500/40 dark:stroke-slate-400/40"
+              stroke-width="1.5"
+              stroke-dasharray="4 6"></polygon>
+          </svg>
         </div>
+        <div class="absolute z-10" style={{ top: "150px", left: "100px" }}>
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle
+              cx="80"
+              cy="80"
+              r="78"
+              fill="none"
+              class="stroke-slate-500/40 dark:stroke-slate-400/40"
+              stroke-width="1.5"
+              stroke-dasharray="4 6"></circle>
+          </svg>
+        </div>
+
+        <!-- Scattered Galaxy Stars -->
         <div
-          class="absolute z-10 text-zinc-200 dark:text-zinc-700"
-          style={{ top: "150px", left: "100px", transform: "rotate(-90deg)" }}
+          class="absolute z-10 origin-center animate-[spin_120s_linear_infinite]"
+          style={{ width: "300px", height: "300px", top: "0px", left: "30px" }}
         >
-          <DotPattern />
+          {
+            stars.map((star) => (
+              <div
+                class="absolute rounded-full bg-slate-400 dark:bg-zinc-100"
+                style={{
+                  top: star.top,
+                  left: star.left,
+                  width: `${star.size}px`,
+                  height: `${star.size}px`,
+                  opacity: star.opacity,
+                }}
+              />
+            ))
+          }
         </div>
+
         <div
-          class="absolute z-40 shrink-0 transform rounded-full bg-linear-to-r from-[#6EE7B7] via-[#3B82F6] to-[#9333EA] p-1 transition-all hover:scale-[1.01]"
-          style={{ width: "200px", height: "200px", top: "50px", left: "80px" }}
+          class="absolute z-40 shrink-0 transform rounded-full bg-linear-to-r from-[#6EE7B7] via-[#3B82F6] to-[#9333EA] p-1"
+          style={{ width: "180px", height: "180px", top: "50px", left: "80px" }}
         >
           <Image
             src={profileImage}

@@ -1,7 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import DotPattern from "../components/DotPattern.astro";
 import YearLabel from "../components/YearLabel.astro";
+
+// Generate scattered tracking stars for a galaxy effect around the testimonials
+const stars = Array.from({ length: 40 }).map(() => {
+  const angle = Math.random() * Math.PI * 2;
+  const radius = Math.random() * 90 + 140; // Defines the galaxy ring width
+  return {
+    top: 250 + Math.sin(angle) * radius + "px", // 250 is the center of the 500x500 rotating wrapper
+    left: 250 + Math.cos(angle) * radius + "px",
+    size: Math.random() * 2 + 0.5,
+    opacity: Math.random() * 0.6 + 0.2,
+  };
+});
 ---
 
 <Layout title="CV" description="CV" showBackground={false}>
@@ -42,34 +53,88 @@ import YearLabel from "../components/YearLabel.astro";
 
     <div class="flex flex-col lg:flex-row lg:space-x-12">
       <div class="relative hidden w-full px-12 lg:block lg:w-2/5">
-        <div class="absolute z-10 text-gray-300 dark:text-zinc-700">
-          <DotPattern />
+        <div class="absolute z-10">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle
+              cx="80"
+              cy="80"
+              r="78"
+              fill="none"
+              class="stroke-slate-500/40 dark:stroke-slate-400/40"
+              stroke-width="1.5"
+              stroke-dasharray="4 6"></circle>
+          </svg>
         </div>
         <div
           class="absolute z-10"
           style={{
             top: "280px",
             left: "160px",
-            background: "#9acd32",
             width: "200px",
             height: "200px",
             transform: "rotate(-30deg)",
           }}
         >
+          <svg viewBox="0 0 200 200" class="h-full w-full">
+            <rect
+              x="2"
+              y="2"
+              width="196"
+              height="196"
+              fill="none"
+              class="stroke-slate-500/40 dark:stroke-slate-400/40"
+              stroke-width="1.5"
+              stroke-dasharray="4 6"></rect>
+          </svg>
         </div>
         <div
-          class="absolute z-10 h-0 w-0 border"
+          class="absolute z-10"
           style={{
             top: "380px",
             left: "150px",
+            width: "200px",
+            height: "170px",
             transform: "rotate(40deg)",
-            borderWidth: "0 100px 170px 100px",
-            borderColor: "transparent transparent #cd5c5c transparent",
           }}
         >
+          <svg viewBox="0 0 200 170" class="h-full w-full">
+            <polygon
+              points="100,2 198,168 2,168"
+              fill="none"
+              class="stroke-slate-500/40 dark:stroke-slate-400/40"
+              stroke-width="1.5"
+              stroke-dasharray="4 6"></polygon>
+          </svg>
         </div>
+        <!-- Scattered Galaxy Stars -->
         <div
-          class="relative z-20 w-80 transform rounded-xl bg-gradient-to-r from-[#6EE7B7] via-[#3B82F6] to-[#9333EA] p-1 transition-all hover:scale-[1.01]"
+          class="absolute z-10 origin-center animate-[spin_120s_linear_infinite]"
+          style={{
+            width: "500px",
+            height: "500px",
+            top: "-80px",
+            left: "-50px",
+          }}
+        >
+          {
+            stars.map((star) => (
+              <div
+                class="absolute rounded-full bg-slate-400 dark:bg-zinc-100"
+                style={{
+                  top: star.top,
+                  left: star.left,
+                  width: `${star.size}px`,
+                  height: `${star.size}px`,
+                  opacity: star.opacity,
+                }}
+              />
+            ))
+          }
+        </div>
+
+        <!-- Testimonials -->
+        <div
+          class="relative z-20 w-80 transform rounded-xl bg-gradient-to-r from-[#6EE7B7] via-[#3B82F6] to-[#9333EA] p-1"
           style={{ top: "40px", left: "40px" }}
         >
           <div class="dark:bg-one-dark space-y-8 rounded-lg bg-white p-4">
