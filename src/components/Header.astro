@@ -67,12 +67,8 @@ const { showLogo = true } = Astro.props;
         </button>
       </div>
     </nav>
-    {
-      showLogo && (
-        <div class="px-7 py-4 text-orange-500">
-          <Logo />
-        </div>
-      )
-    }
+    <div class={`px-7 py-4 text-orange-500 ${showLogo ? 'block' : 'md:hidden'}`}>
+      <Logo />
+    </div>
   </div>
 </header>
