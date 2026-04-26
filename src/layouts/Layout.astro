@@ -11,6 +11,7 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  showLogo?: boolean;
   showBackground?: boolean;
   showFooter?: boolean;
 }
@@ -18,6 +19,7 @@ interface Props {
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
+  showLogo = true,
   showBackground = false,
   showFooter = true,
 } = Astro.props;
@@ -55,27 +57,29 @@ const stars = Array.from({ length: 150 }).map(() => ({
     <!-- UNIVERSAL SKY COLOR -->
     <div
       class={`fixed inset-0 -z-30 bg-linear-to-b transition-colors duration-1000 dark:from-[#050510] dark:via-[#0a0a1a] dark:to-[#1a1230] ${
-        showBackground ? "from-sky-400 to-sky-200" : "from-zinc-50 to-zinc-100"
+        showBackground ? "from-sky-400 to-sky-200" : "from-zinc-50 to-zinc-200"
       }`}
-    ></div>
+    >
+    </div>
     <div
-      class={`pointer-events-none fixed inset-0 -z-10 transition-opacity duration-1000 dark:bg-linear-to-tl dark:from-transparent dark:via-slate-900/40 dark:to-cyan-900/40 dark:mix-blend-normal dark:!opacity-70 ${
+      class={`pointer-events-none fixed inset-0 -z-10 transition-opacity duration-1000 dark:bg-linear-to-tl dark:from-transparent dark:via-slate-900/40 dark:to-cyan-800/40 dark:mix-blend-normal dark:opacity-70! ${
         showBackground
           ? "bg-linear-to-r from-[#D783A4] from-20% via-[#E2AA9B] via-42% to-[#F2E48E] to-88% opacity-70 mix-blend-multiply"
           : "opacity-0"
       }`}
-    ></div>
+    >
+    </div>
 
     {
       showBackground && (
         <>
           <div class="absolute inset-0 -z-20 overflow-hidden">
             {/* The Sun for light mode */}
-            <div class="absolute top-20 right-[15%] h-32 w-32 rounded-full bg-yellow-200 opacity-80 blur-[40px] transition-opacity duration-1000 dark:opacity-0" />
-            <div class="absolute top-24 right-[16%] h-24 w-24 rounded-full bg-white opacity-90 blur-[10px] transition-opacity duration-1000 dark:opacity-0" />
+            <div class="absolute top-20 right-[15%] h-32 w-32 rounded-full bg-yellow-200 opacity-80 blur-2xl transition-opacity duration-1000 dark:opacity-0" />
+            <div class="absolute top-24 right-[16%] h-24 w-24 rounded-full bg-white opacity-90 blur-xl transition-opacity duration-1000 dark:opacity-0" />
 
             {/* Stars layer for dark mode */}
-            <div class="absolute inset-0 opacity-0 transition-opacity duration-1000 dark:opacity-100">
+            <div class="absolute inset-0 z-0 opacity-0 transition-opacity duration-1000 dark:opacity-100">
               {stars.map((star) => (
                 <div
                   class="star-twinkle absolute rounded-full bg-white"
@@ -134,178 +138,323 @@ const stars = Array.from({ length: 150 }).map(() => ({
                 />
               </svg>
             </div>
-
-            {/* Lake and Forest Scenery (Max 1/3 height) */}
-            <svg
-              class="absolute bottom-0 z-10 w-full min-h-[250px] max-h-[33vh]"
-              viewBox="0 0 1000 300"
-              preserveAspectRatio="xMidYMax slice"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <!-- Organic Pine Trees -->
-                <g id="pine" class="fill-current">
-                  <rect x="-2" y="30" width="4" height="15" />
-                  <path d="M0,-10 L-12,8 L-6,8 L-20,22 L-8,21 L-24,35 L24,35 L8,21 L20,22 L6,8 L12,8 Z" stroke-linejoin="round" />
-                </g>
-                <g id="pine-tall" class="fill-current">
-                  <rect x="-3" y="40" width="6" height="20" />
-                  <path d="M0,-20 L-15,0 L-8,0 L-22,20 L-10,18 L-28,45 L28,45 L10,18 L22,20 L8,0 L15,0 Z" stroke-linejoin="round" />
-                </g>
-                <!-- Characters -->
-                <g id="hiker-walking" class="fill-current">
-                  <rect x="-14" y="-12" width="12" height="20" rx="4" transform="rotate(-15, -14, -12)" />
-                  <ellipse cx="-2" cy="-5" rx="7" ry="14" transform="rotate(10, -2, -5)" />
-                  <circle cx="4" cy="-24" r="5" />
-                  <path d="M1,-25 Q4,-30 7,-25 Z" />
-                  <path d="M-2,5 L-10,15 L-8,22 M 2,5 L 8,15 L 6,24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
-                  <line x1="12" y1="-8" x2="16" y2="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                  <path d="M 0,-10 L 8,-2 L 13,-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </g>
-                <g id="husky-walking" class="fill-current">
-                  <ellipse cx="0" cy="0" rx="14" ry="8" />
-                  <path d="M 10,-4 L 16,-12 A 4 4 0 0 1 24,-10 L 26,-4 L 24,2 L 12,4 Z" />
-                  <polygon points="16,-10 18,-18 21,-11" />
-                  <polygon points="20,-9 24,-16 26,-8" />
-                  <!-- Bushy sickle tail -->
-                  <path d="M-12,-2 C-22,-4 -28,-14 -16,-20 C-18,-14 -10,-8 -6,-6 Z" />
-                  <path d="M -8,6 L -12,18 M -2,6 L 2,16 M 8,6 L 6,18 M 12,4 L 16,16" fill="none" class="stroke-current" stroke-width="2.5" stroke-linecap="round" />
-                </g>
-                <g id="hiker-sitting" class="fill-current">
-                  <rect x="-16" y="-12" width="12" height="22" rx="4" transform="rotate(5,-16,-12)" />
-                  <ellipse cx="-2" cy="-5" rx="8" ry="13" transform="rotate(15, -2, -5)" />
-                  <circle cx="4" cy="-22" r="4.5" />
-                  <path d="M1,-23 Q4,-28 7,-23 Z" />
-                  <path d="M-2,5 L14,-4 L16,10 L0,10 Z" />
-                  <path d="M1,-10 L8,-2 L14,1" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
-                </g>
-                <g id="husky-sitting" class="fill-current">
-                  <path d="M -8,12 C -18,6 -18,-6 -8,-12 C 2,-14 6,-5 8,0 C 12,6 6,12 -2,12 Z" />
-                  <path d="M -2,-5 C 2,-16 8,-20 12,-16 C 18,-12 18,-8 15,-5 C 12,0 8,2 2,0 Z" />
-                  <polygon points="10,-14 12,-22 15,-15" />
-                  <polygon points="14,-13 18,-20 18,-11" />
-                  <path d="M 14,-8 L 22,-5 L 20,1 L 12,2 Z" />
-                  <!-- Bushy sitting tail curled up -->
-                  <path d="M-8,6 C-22,8 -26,-2 -16,-10 C-16,-2 -8,-2 -4,0 Z" />
-                  <rect x="5" y="0" width="3.5" height="12" rx="1" />
-                  <rect x="9" y="-2" width="3.5" height="14" rx="1" />
-                </g>
-              </defs>
-
-              <!-- Distant misty hills (Solid atmospheric colors, infinite soft curves) -->
-              <path d="M -100 165 Q 250 140 600 165 T 1200 150 L 1200 300 L -100 300 Z" class="fill-emerald-600 dark:fill-[#080d17]" />
-              <path d="M -100 175 Q 350 195 700 160 T 1200 175 L 1200 300 L -100 300 Z" class="fill-emerald-700 dark:fill-[#0a101d]" />
-
-              <!-- Midground shore (back side of lake) -->
-              <!-- Shifted down to give more space for the sky and lake -->
-              <path d="M0 185 Q 150 175 300 190 T 700 175 T 1000 185 L 1000 300 L 0 300 Z" class="fill-emerald-800 dark:fill-[#060810]" />
-
-              <!-- Midground Trees (much smaller) -->
-              <g class="text-emerald-800 dark:text-[#060810]">
-                {/* <use href="#pine" transform="translate(50, 170) scale(0.25)" />
-                <use href="#pine" transform="translate(80, 175) scale(0.3)" />
-                <use href="#pine-tall" transform="translate(120, 165) scale(0.2)" />
-                <use href="#pine" transform="translate(250, 175) scale(0.25)" />
-                <use href="#pine-tall" transform="translate(280, 170) scale(0.3)" />
-                <use href="#pine" transform="translate(750, 175) scale(0.25)" />
-                <use href="#pine" transform="translate(780, 180) scale(0.2)" />
-                <use href="#pine-tall" transform="translate(800, 160) scale(0.25)" />
-                <use href="#pine-tall" transform="translate(807, 158) scale(0.31)" />
-                <use href="#pine-tall" transform="translate(815, 157) scale(0.26)" />
-                <use href="#pine" transform="translate(824, 160) scale(0.26)" />
-                <use href="#pine" transform="translate(900, 175) scale(0.15)" /> */}
-              </g>
-
-              <!-- Lake water (Drawn correctly over the base of the midground) -->
-              <rect x="0" y="210" width="1000" height="105" class="fill-sky-400/60 dark:fill-[#121b30]" />
-
-              <!-- Lake reflections -->
-              <g class="stroke-white/40 dark:stroke-white/10" stroke-width="2" stroke-linecap="round">
-                <path d="M450 214 L 550 214 M 350 218 L 420 218 M 620 218 L 750 218 M 480 222 L 520 222 M 200 225 L 300 225 M 700 230 L 800 230 M 850 222 L 950 222 M 50 220 L 150 220" />
-              </g>
-
-              <!-- Foreground shore (closer side of lake) -->
-              <path d="M0 300 L 0 235 Q 200 215 400 240 T 800 225 L 1000 240 L 1000 300 Z" class="fill-emerald-900 dark:fill-[#030408]" />
-              {/* <path d="M-50 300 L -50 225 Q 150 245 400 230 T 1100 215 L 1100 300 Z" class="fill-emerald-950 dark:fill-[#010204]" /> */}
-
-              <!-- Cabin -->
-              <g transform="translate(730, 220) scale(0.8)">
-                <!-- Chimney -->
-                <rect x="45" y="-15" width="8" height="25" class="fill-stone-700 dark:fill-black" />
-                <!-- Base (Warm pine wood, extended up slightly to overlap roof) -->
-                <rect x="0" y="14" width="70" height="36" class="fill-[#7a4b2e] dark:fill-black" />
-                <!-- Log seams -->
-                <g class="stroke-[#5a3620] dark:stroke-[#111111]" stroke-width="1.5">
-                  <line x1="0" y1="20" x2="70" y2="20" />
-                  <line x1="0" y1="26" x2="70" y2="26" />
-                  <line x1="0" y1="32" x2="70" y2="32" />
-                  <line x1="0" y1="38" x2="70" y2="38" />
-                  <line x1="0" y1="44" x2="70" y2="44" />
-                </g>
-                <!-- Roof (Draw over base) -->
-                <polygon points="-5,16 35,-15 75,16" class="fill-stone-900 dark:fill-[#020306]" />
-                <!-- Door -->
-                <rect x="10" y="25" width="15" height="25" class="fill-stone-950 dark:fill-[#05060a]" />
-                <!-- 4-Pane Window (Dark glass in day, glowing at night) -->
-                <g class="fill-sky-900 opacity-90 transition-colors duration-1000 dark:fill-orange-200">
-                  <rect x="42" y="22" width="6" height="6" />
-                  <rect x="49" y="22" width="6" height="6" />
-                  <rect x="42" y="29" width="6" height="6" />
-                  <rect x="49" y="29" width="6" height="6" />
-                </g>
-              </g>
-
-              <!-- Foreground Trees (scaled down) -->
-              <g class="text-emerald-950 dark:text-[#010204]">
-                <use href="#pine-tall" transform="translate(30, 175) scale(1.9)" />
-                <use href="#pine" transform="translate(120, 205) scale(0.7)" />
-                <use href="#pine" transform="translate(160, 195) scale(0.8)" />
-                
-                <use href="#pine-tall" transform="translate(250, 200) scale(0.75)" />
-                <use href="#pine" transform="translate(200, 210) scale(0.4)" />
-
-                <use href="#pine-tall" transform="translate(850, 175) scale(1.0)" />
-                <use href="#pine-tall" transform="translate(900, 190) scale(0.85)" />
-                <use href="#pine" transform="translate(930, 210) scale(0.85)" />
-                <use href="#pine-tall" transform="translate(980, 175) scale(1.1)" />
-              </g>
-
-              <!-- Characters: Light Mode (Leaving/Hiking away) -->
-              <g class="block dark:hidden text-emerald-950">
-                <!-- Mirrored so they hike to the left. Dog left (leading), hiker right (following) -->
-                <use href="#husky-walking" transform="translate(180, 235) scale(-0.5, 0.5)" />
-                <use href="#hiker-walking" transform="translate(220, 230) scale(-0.6, 0.6)" />
-              </g>
-
-              <!-- Characters: Dark Mode (Sitting by Fire) -->
-              <g class="hidden dark:block text-[#05060A]">
-                <!-- Sitting on the left side of the fire, facing it -->
-                <use href="#hiker-sitting" transform="translate(640, 245) scale(0.6)" />
-                <use href="#husky-sitting" transform="translate(615, 248) scale(0.55)" />
-              </g>
-
-              <!-- Bonfire -->
-              <g transform="translate(680, 250) scale(0.5)">
-                <!-- Fire Base / Logs -->
-                <path d="M2,15 L 28,15 L 15,20 Z" class="fill-stone-800 dark:fill-black" />
-                <polygon points="5,15 25,15 15,10" class="fill-orange-900" />
-                
-                <!-- Flames (Only on in dark mode) -->
-                <g class="hidden dark:block">
-                  <!-- Ambient Glow (animated) -->
-                  <circle cx="15" cy="5" r="40" class="fire-flicker fill-orange-500 opacity-30 mix-blend-screen blur-[8px]" />
-                  <!-- Flames -->
-                  <path d="M15,15 Q 5,5 15,-10 Q 25,5 15,15 Z" class="fire-flicker fill-orange-500" />
-                  <path d="M15,15 Q 10,8 13,-2 Q 20,8 15,15 Z" class="fire-flicker-fast fill-yellow-400" />
-                  <path d="M15,15 Q 18,10 20,2 Q 22,10 15,15 Z" class="fire-flicker fill-orange-300" style="animation-delay: 0.1s;" />
-                </g>
-              </g>
-            </svg>
           </div>
+
+          {/* Lake and Forest Scenery (Max 1/3 height) */}
+          <svg
+            class="absolute bottom-0 z-[-15] min-h-62.5 w-full"
+            viewBox="0 0 1000 300"
+            preserveAspectRatio="xMidYMax slice"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              {/* Organic Pine Trees */}
+              <g id="pine" class="fill-current">
+                <rect x="-2" y="30" width="4" height="15" />
+                <path
+                  d="M0,-10 L-12,8 L-6,8 L-20,22 L-8,21 L-24,35 L24,35 L8,21 L20,22 L6,8 L12,8 Z"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <g id="pine-tall" class="fill-current">
+                <rect x="-3" y="40" width="6" height="20" />
+                <path
+                  d="M0,-20 L-15,0 L-8,0 L-22,20 L-10,18 L-28,45 L28,45 L10,18 L22,20 L8,0 L15,0 Z"
+                  stroke-linejoin="round"
+                />
+              </g>
+              {/* Characters */}
+              <g id="hiker-walking" class="fill-current">
+                <rect
+                  x="-14"
+                  y="-12"
+                  width="12"
+                  height="20"
+                  rx="4"
+                  transform="rotate(-15, -14, -12)"
+                />
+                <ellipse
+                  cx="-2"
+                  cy="-5"
+                  rx="7"
+                  ry="14"
+                  transform="rotate(10, -2, -5)"
+                />
+                <circle cx="4" cy="-24" r="5" />
+                <path d="M1,-25 Q4,-30 7,-25 Z" />
+                <path
+                  d="M-2,5 L-10,15 L-8,22 M 2,5 L 8,15 L 6,24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <line
+                  x1="12"
+                  y1="-8"
+                  x2="16"
+                  y2="24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M 0,-10 L 8,-2 L 13,-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <g id="husky-walking" class="fill-current">
+                <ellipse cx="0" cy="0" rx="14" ry="8" />
+                <path d="M 10,-4 L 16,-12 A 4 4 0 0 1 24,-10 L 26,-4 L 24,2 L 12,4 Z" />
+                <polygon points="16,-10 18,-18 21,-11" />
+                <polygon points="20,-9 24,-16 26,-8" />
+                {/* Bushy sickle tail */}
+                <path d="M-12,-2 C-22,-4 -28,-14 -16,-20 C-18,-14 -10,-8 -6,-6 Z" />
+                <path
+                  d="M -8,6 L -12,18 M -2,6 L 2,16 M 8,6 L 6,18 M 12,4 L 16,16"
+                  fill="none"
+                  class="stroke-current"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+              </g>
+              <g id="hiker-sitting" class="fill-current">
+                <rect
+                  x="-16"
+                  y="-12"
+                  width="12"
+                  height="22"
+                  rx="4"
+                  transform="rotate(5,-16,-12)"
+                />
+                <ellipse
+                  cx="-2"
+                  cy="-5"
+                  rx="8"
+                  ry="13"
+                  transform="rotate(15, -2, -5)"
+                />
+                <circle cx="4" cy="-22" r="4.5" />
+                <path d="M1,-23 Q4,-28 7,-23 Z" />
+                <path d="M-2,5 L14,-4 L16,10 L0,10 Z" />
+                <path
+                  d="M1,-10 L8,-2 L14,1"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </g>
+              <g id="husky-sitting" class="fill-current">
+                <path d="M -8,12 C -18,6 -18,-6 -8,-12 C 2,-14 6,-5 8,0 C 12,6 6,12 -2,12 Z" />
+                <path d="M -2,-5 C 2,-16 8,-20 12,-16 C 18,-12 18,-8 15,-5 C 12,0 8,2 2,0 Z" />
+                <polygon points="10,-14 12,-22 15,-15" />
+                <polygon points="14,-13 18,-20 18,-11" />
+                <path d="M 14,-8 L 22,-5 L 20,1 L 12,2 Z" />
+                {/* Bushy sitting tail curled up */}
+                <path d="M-8,6 C-22,8 -26,-2 -16,-10 C-16,-2 -8,-2 -4,0 Z" />
+                <rect x="5" y="0" width="3.5" height="12" rx="1" />
+                <rect x="9" y="-2" width="3.5" height="14" rx="1" />
+              </g>
+            </defs>
+
+            {/* Distant misty hills (Solid atmospheric colors, infinite soft curves) */}
+            <path
+              d="M -100 165 Q 250 140 600 165 T 1200 150 L 1200 300 L -100 300 Z"
+              class="fill-emerald-600 dark:fill-[#080d17]"
+            />
+            <path
+              d="M -100 175 Q 350 195 700 160 T 1200 175 L 1200 300 L -100 300 Z"
+              class="fill-emerald-700 dark:fill-[#0a101d]"
+            />
+
+            {/* Midground shore (back side of lake) */}
+            {/* Shifted down to give more space for the sky and lake */}
+            <path
+              d="M0 185 Q 150 175 300 190 T 700 175 T 1000 185 L 1000 300 L 0 300 Z"
+              class="fill-emerald-800 dark:fill-[#060810]"
+            />
+
+            {/* Midground Trees (much smaller) */}
+            <g class="text-emerald-800 dark:text-[#060810]">
+              {/* <use href="#pine" transform="translate(50, 170) scale(0.25)" />
+              <use href="#pine" transform="translate(80, 175) scale(0.3)" />
+              <use href="#pine-tall" transform="translate(120, 165) scale(0.2)" />
+              <use href="#pine" transform="translate(250, 175) scale(0.25)" />
+              <use href="#pine-tall" transform="translate(280, 170) scale(0.3)" />
+              <use href="#pine" transform="translate(750, 175) scale(0.25)" />
+              <use href="#pine" transform="translate(780, 180) scale(0.2)" />
+              <use href="#pine-tall" transform="translate(800, 160) scale(0.25)" />
+              <use href="#pine-tall" transform="translate(807, 158) scale(0.31)" />
+              <use href="#pine-tall" transform="translate(815, 157) scale(0.26)" />
+              <use href="#pine" transform="translate(824, 160) scale(0.26)" />
+              <use href="#pine" transform="translate(900, 175) scale(0.15)" /> */}
+            </g>
+
+            {/* Lake water (Drawn correctly over the base of the midground) */}
+            <rect
+              x="0"
+              y="210"
+              width="1000"
+              height="105"
+              class="fill-sky-400/60 dark:fill-[#121b30]"
+            />
+
+            {/* Lake reflections */}
+            <g
+              class="stroke-white/40 dark:stroke-white/10"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M450 214 L 550 214 M 350 218 L 420 218 M 620 218 L 750 218 M 480 222 L 520 222 M 200 225 L 300 225 M 700 230 L 800 230 M 850 222 L 950 222 M 50 220 L 150 220" />
+            </g>
+
+            {/* Foreground shore (closer side of lake) */}
+            <path
+              d="M0 300 L 0 235 Q 200 215 400 240 T 800 225 L 1000 240 L 1000 300 Z"
+              class="fill-emerald-900 dark:fill-[#030408]"
+            />
+            {/* <path d="M-50 300 L -50 225 Q 150 245 400 230 T 1100 215 L 1100 300 Z" class="fill-emerald-950 dark:fill-[#010204]" /> */}
+
+            {/* Cabin */}
+            <g transform="translate(730, 220) scale(0.8)">
+              {/* Chimney */}
+              <rect
+                x="45"
+                y="-15"
+                width="8"
+                height="25"
+                class="fill-stone-700 dark:fill-black"
+              />
+              {/* Base (Warm pine wood, extended up slightly to overlap roof) */}
+              <rect
+                x="0"
+                y="14"
+                width="70"
+                height="36"
+                class="fill-[#7a4b2e] dark:fill-black"
+              />
+              {/* Log seams */}
+              <g
+                class="stroke-[#5a3620] dark:stroke-[#111111]"
+                stroke-width="1.5"
+              >
+                <line x1="0" y1="20" x2="70" y2="20" />
+                <line x1="0" y1="26" x2="70" y2="26" />
+                <line x1="0" y1="32" x2="70" y2="32" />
+                <line x1="0" y1="38" x2="70" y2="38" />
+                <line x1="0" y1="44" x2="70" y2="44" />
+              </g>
+              {/* Roof (Draw over base) */}
+              <polygon
+                points="-5,16 35,-15 75,16"
+                class="fill-stone-900 dark:fill-[#020306]"
+              />
+              {/* Door */}
+              <rect
+                x="10"
+                y="25"
+                width="15"
+                height="25"
+                class="fill-stone-950 dark:fill-[#05060a]"
+              />
+              {/* 4-Pane Window (Dark glass in day, glowing at night) */}
+              <g class="fill-sky-900 opacity-90 transition-colors duration-1000 dark:fill-orange-200">
+                <rect x="42" y="22" width="6" height="6" />
+                <rect x="49" y="22" width="6" height="6" />
+                <rect x="42" y="29" width="6" height="6" />
+                <rect x="49" y="29" width="6" height="6" />
+              </g>
+            </g>
+
+            {/* Foreground Trees (scaled down) */}
+            <g class="text-emerald-950 dark:text-[#010204]">
+              <use
+                href="#pine-tall"
+                transform="translate(30, 175) scale(1.9)"
+              />
+              <use href="#pine" transform="translate(120, 205) scale(0.7)" />
+              <use href="#pine" transform="translate(160, 195) scale(0.8)" />
+
+              <use
+                href="#pine-tall"
+                transform="translate(250, 200) scale(0.75)"
+              />
+              <use href="#pine" transform="translate(200, 210) scale(0.4)" />
+
+              <use
+                href="#pine-tall"
+                transform="translate(850, 175) scale(1.0)"
+              />
+              <use
+                href="#pine-tall"
+                transform="translate(900, 190) scale(0.85)"
+              />
+              <use href="#pine" transform="translate(930, 210) scale(0.85)" />
+              <use
+                href="#pine-tall"
+                transform="translate(980, 175) scale(1.1)"
+              />
+            </g>
+
+            {/* Characters: Light Mode (Leaving/Hiking away) */}
+            {/* <g class="block dark:hidden text-emerald-950">
+              <!-- Mirrored so they hike to the left. Dog left (leading), hiker right (following) -->
+              <use href="#husky-walking" transform="translate(180, 235) scale(-0.5, 0.5)" />
+              <use href="#hiker-walking" transform="translate(220, 230) scale(-0.6, 0.6)" />
+            </g>
+
+            <!-- Characters: Dark Mode (Sitting by Fire) -->
+            <g class="hidden dark:block text-[#05060A]">
+              <!-- Sitting on the left side of the fire, facing it -->
+              <use href="#hiker-sitting" transform="translate(640, 245) scale(0.6)" />
+              <use href="#husky-sitting" transform="translate(615, 248) scale(0.55)" />
+            </g> */}
+
+            {/* Bonfire */}
+            <g transform="translate(680, 250) scale(0.5)">
+              {/* Fire Base / Logs */}
+              <path
+                d="M2,15 L 28,15 L 15,20 Z"
+                class="fill-stone-800 dark:fill-black"
+              />
+              <polygon points="5,15 25,15 15,10" class="fill-orange-900" />
+
+              {/* Flames (Only on in dark mode) */}
+              <g class="hidden dark:block">
+                {/* Ambient Glow (animated) */}
+                <circle
+                  cx="15"
+                  cy="5"
+                  r="40"
+                  class="fire-flicker fill-orange-500 opacity-30 mix-blend-screen blur-sm"
+                />
+                {/* Flames */}
+                <path
+                  d="M15,15 Q 5,5 15,-10 Q 25,5 15,15 Z"
+                  class="fire-flicker fill-orange-500"
+                />
+                <path
+                  d="M15,15 Q 10,8 13,-2 Q 20,8 15,15 Z"
+                  class="fire-flicker-fast fill-yellow-400"
+                />
+                <path
+                  d="M15,15 Q 18,10 20,2 Q 22,10 15,15 Z"
+                  class="fire-flicker fill-orange-300"
+                  style="animation-delay: 0.1s;"
+                />
+              </g>
+            </g>
+          </svg>
         </>
       )
     }
-    <Header showLogo={!showBackground} />
+    <Header showLogo={!showBackground} showLogo={showLogo} />
     <main class="mx-auto w-full max-w-screen-2xl flex-1 p-10">
       <slot />
     </main>

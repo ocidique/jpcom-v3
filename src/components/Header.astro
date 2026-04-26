@@ -15,12 +15,8 @@ const { showLogo = true } = Astro.props;
     <nav class="flex flex-col gap-2 px-7 py-4">
       <div class="flex">
         <h2>
-          <a
-            href="/"
-            class="font-cursive rounded-md px-3 font-semibold lowercase hover:text-orange-500"
-            ><span class="mr-3 text-3xl text-indigo-400">hi, from</span><span
-              class="text-3xl">{SITE_HEADER_TITLE}</span
-            ></a
+          <a href="/" class="rounded-md px-3 lowercase hover:text-orange-500"
+            ><span class="text-2xl">{SITE_HEADER_TITLE}</span></a
           >
         </h2>
       </div>
@@ -69,9 +65,7 @@ const { showLogo = true } = Astro.props;
         </button>
       </div>
     </nav>
-    <div
-      class={`px-7 py-4 text-orange-500 ${showLogo ? "block" : "md:hidden"}`}
-    >
+    <div class={`px-7 py-4 text-orange-500 ${showLogo ? "block" : "hidden"}`}>
       <Logo />
     </div>
   </div>

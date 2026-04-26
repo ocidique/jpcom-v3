@@ -7,6 +7,12 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
   }
+
+  --animate-logo-enter: logo-enter 2.5s ease-out both;
+  @keyframes logo-enter {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
 }
 
 @layer base {
@@ -196,7 +202,7 @@ nav a.active {
 }
 
 .post-content p > a, .post-content li > a {
-  @apply mx-auto max-w-2xl border-b-2  border-orange-500 hover:text-indigo-600 dark:text-zinc-100 dark:hover:text-indigo-400;
+  @apply mx-auto max-w-2xl border-b-2 border-orange-500 hover:text-indigo-600 dark:text-zinc-100 dark:hover:text-indigo-400;
 }
 
 .post-content p > code {

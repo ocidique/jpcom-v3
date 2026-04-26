@@ -3,14 +3,23 @@ import Layout from "../layouts/Layout.astro";
 import Logo from "../assets/logo.svg";
 ---
 
-<Layout showBackground={true} showFooter={false}>
+<Layout showLogo={false} showBackground={false} showFooter={false}>
   <div
-    class="relative mx-auto flex max-w-3xl flex-col justify-center py-20 text-zinc-900 dark:text-zinc-100"
+    class="relative mx-auto flex max-w-3xl flex-col justify-center py-10 text-zinc-900 md:py-20 dark:text-zinc-100"
   >
     <!-- Desktop view: Huge centered logo with absolutely positioned technical text -->
     <div class="hidden md:block">
-      <div class="relative left-22.5 text-zinc-900 dark:text-orange-500">
-        <Logo />
+      <!-- Stars + Logo wrapped together -->
+      <div class="animate-logo-enter relative left-22.5 inline-block">
+        <!-- Dark mode orange glow behind logo -->
+        <div
+          class="absolute -inset-12 rounded-full bg-orange-500/0 blur-3xl transition-opacity duration-700 dark:bg-orange-500/15"
+        >
+        </div>
+        <!-- Logo on top -->
+        <div class="relative z-10 text-zinc-900 dark:text-orange-600">
+          <Logo />
+        </div>
       </div>
 
       <p class="absolute top-37.5 left-1 font-mono">// developer / designer</p>
@@ -24,7 +33,7 @@ import Logo from "../assets/logo.svg";
     </div>
 
     <!-- Mobile view: Hidden large logo, tidy left-margin text stack -->
-    <div class="flex flex-col gap-4 pt-10 pl-6 font-mono md:hidden">
+    <div class="flex flex-col gap-4 font-mono md:hidden">
       <p>// developer / designer</p>
       <p>// creative maker / nature lover</p>
       <p>// based in finland</p>
